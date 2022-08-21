@@ -6,7 +6,8 @@ function LoginPage() {
   return (
     <StBackground>
         <UserHeader/>
-       <StLoginBox>
+       <StLoginBox
+     className="blur">
       <Login/>
     </StLoginBox>
     </StBackground>
