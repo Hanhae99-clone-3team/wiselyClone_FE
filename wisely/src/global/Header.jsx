@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import LoginPage from "../pages/LoginPage";
-import { logout } from "../redux/modules/userSlice";
+
 
 
 const Header = (props) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { userToken } = useSelector((state) => state.user);
 
-  const userInfo = localStorage.getItem("userInfo");
-  console.log(userInfo);
+  const Token = localStorage.getItem("Authorization");
+  console.log(Token);
   // useEffect(() => {
   //   if (userToken) {
   //     dispatch(getUserDetails())
@@ -22,22 +19,26 @@ const Header = (props) => {
   
   return (
     <StHeaderWrap className="header">
-      <h1 onClick={() => navigate("/")}>MY CODY</h1>
-      <button onClick={() => navigate("/add")}>등록하기</button>
+      <StContent>
+    <StMenu>
+        <h2 onClick={() => navigate("/")}>WISELY</h2>
+        <p>제품보기</p>
+        </StMenu>
+      
       <div className="loginFlexBox">
-        {userInfo ? (
-          <>
-            <p>환영합니다! {userInfo}님</p>
-            <p className="sign" onClick={() => dispatch(logout())}>
-              로그아웃
+        {Token ? (
+            <p  onClick={() => navigate("/profile")}>
+              마이페이지
             </p>
-          </>
+          
         ) : (
-          <p className="sign" >
-            로그인 / 회원가입
+          <p onClick={()=> navigate("/login")}>
+            로그인
           </p>
-        )}
+        )} 
+          <p onClick={()=> navigate("/cart")}>장바구니</p>
       </div>
+      </StContent>
     </StHeaderWrap>
   );
 };
@@ -45,33 +46,50 @@ const Header = (props) => {
 export default Header;
 
 const StHeaderWrap = styled.div`
-  position: relative;
-  max-width: 1400px;
-  min-width: 800px;
-  height: 75px;
-  margin: 0 auto;
-  background-color: #d8eefe;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    padding: 0 16px;
+    width: 1140px;
+    height: 68px;
+    background-color: transparent;
   box-sizing: border-box;
-  border-bottom: 1px solid #094067;
-  color: #094067;
-  h1 {
-    margin: 0;
-    font-family: "Rubik Marker Hatch", cursive;
+  max-width: 1140px;
+  min-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  
+  h2 {
+    
+    
+    margin-right: 80px;
+    font-family: SpoqaHanSansNeo,Roboto,Helvetica Neue,sans-serif!important;
+    font-style: normal;
+    font-stretch: normal;
+    -webkit-font-smoothing: antialiased;
+    cursor: pointer;
     /* font-family: "Roboto Mono", monospace; */
   }
+  p {
+    color: #1c1c1c;
+    font-family: SpoqaHanSansNeo,Roboto,Helvetica Neue,sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -3%;
+    line-height: 24px;
+    margin-right: 24px;
+    cursor: pointer;
+  }
   button {
-    background-color: #d8eefe;
+    background-color: #fff;
     color: #094067;
     border: none;
     padding: 1.2rem 2rem;
     border-radius: 10px;
 
     font-size: 1.1rem;
-    font-weight: 700;
+    font-weight: 700; 
     cursor: pointer;
     transition: all 0.4s;
     :hover {
@@ -84,8 +102,6 @@ const StHeaderWrap = styled.div`
     border-radius: 10px;
     display: flex;
     gap: 7px;
-    font-size: 18px;
-    font-weight: 700;
     .sign {
       padding: 15px 25px;
       border-radius: 10px;
@@ -98,3 +114,19 @@ const StHeaderWrap = styled.div`
     }
   }
 `;
+
+const StContent = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    height: 50px;
+    background-color: transparent;
+    width: 1000px;
+  
+ 
+`
+const StMenu=styled.div`
+  display: flex;
+  align-items: center;
+`
