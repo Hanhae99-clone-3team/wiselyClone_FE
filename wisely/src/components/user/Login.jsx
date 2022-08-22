@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+
+import {KAKAO_AUTH_URL} from "./Oauth"
 // import { userLogin } from "../../redux/modules/userActions";
 //  
 // import Error from "../../components/Error";
@@ -37,21 +39,21 @@ function Login() {
     const [loginfail, setLoginfail]=useState();
     const submitForm = async (data) => {
         if (data.password === undefined) {
-            const res = await axios.get(`${URI}/emailcheck`
-            //  , { email: data.email }
+            const res = await axios.post(`${URI}/members/emailcheck`, 
+            { email: data.email }
             );
-           
-            return res.data.success ? setIsEmail(true) : navigate("/register");
+           console.log(res)
+            return res.data.success ? navigate("/register"): setIsEmail(true);
         } else {
-            const res2 = await axios.get(`${URI}/memberslogin`,
-                // {
-                //     email: data.email,
-                //     password: data.password
-                // }
+            const res2 = await axios.post(`${URI}/members/login`,
+                {
+                    email: data.email,
+                    password: data.password
+                }
                 )
                 console.log(res2)
-            // localStorage.setItem("Authorization", res2.headers.authorization);
-            // localStorage.setItem("RefreshToken", res2.headers.refreshtoken);
+            localStorage.setItem("Authorization", res2.headers.authorization);
+            localStorage.setItem("RefreshToken", res2.headers.refreshtoken);
             return res2.data.success ? navigate("/"): setLoginfail(res2.data.msg);
         }
 
@@ -61,7 +63,7 @@ function Login() {
 // console.log(Boolean(!watchEmail))
 // console.log(Boolean(errors.email))
 // console.log(!watchEmail || errors.email)
-console.log(loginfail);
+
   return (
     <StLoginBox className="login" >
       {/* {error && <Error>{error}</Error>} */}
@@ -71,6 +73,11 @@ console.log(loginfail);
         시작합니다.
        </LoginH1>
       </div>
+      <a href={KAKAO_AUTH_URL}><img
+          src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+          width="222"
+          alt="kakao"
+        /></a>
       <KakaoButton>카톡으로 쉽게 로그인하기</KakaoButton>
       
         <EmailBox>

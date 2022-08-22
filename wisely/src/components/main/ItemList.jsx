@@ -5,32 +5,41 @@ import axios from "axios";
 import Item from "./Item";
 
 function CategoryHeader() {
-  // useEffect(() => {
-  //  getitems(1);
-  // }, []);
-const itemList= [
-  { itemName : "면도기 스타터세트",
-   itemDesc : "면도기 첫 구매 고객 대상",
-   itemRate : 3,
-   itemReviewCount : 37341,
-   itemPrice : 4900,
-   itemImgUrl : "https://wiselystatic.s3.amazonaws.com/THUMBNAIL/prod/assets/images/item/101050000/main/ws-startset-navy-pro-main.png",
- },
-  { itemName : "프레쉬한 바디위시",
-   itemDesc : "미끌거림없이 빠르게 씻기는",
-   itemRate : 2,
-   itemReviewCount : 5000,
-   itemPrice : 4900,
-   itemImgUrl : "https://wiselystatic.s3.amazonaws.com/THUMBNAIL/prod/assets/images/item/600101000/main/ft-bodywash-fresh-main.png",
- }
- ]
+  useEffect(() => {
+   gettotalitems();
+  }, []);
+// const intial= [
+//   { itemName : "면도기 스타터세트",
+//    itemDesc : "면도기 첫 구매 고객 대상",
+//    itemRate : 3,
+//    itemReviewCount : 37341,
+//    itemPrice : 4900,
+//    itemImgUrl : "https://wiselystatic.s3.amazonaws.com/THUMBNAIL/prod/assets/images/item/101050000/main/ws-startset-navy-pro-main.png",
+//  },
+//   { itemName : "프레쉬한 바디위시",
+//    itemDesc : "미끌거림없이 빠르게 씻기는",
+//    itemRate : 2,
+//    itemReviewCount : 5000,
+//    itemPrice : 4900,
+//    itemImgUrl : "https://wiselystatic.s3.amazonaws.com/THUMBNAIL/prod/assets/images/item/600101000/main/ft-bodywash-fresh-main.png",
+//  }
+//  ]
 
-  // const [itemList, setItemList]=useState();
+
+
+  const [itemList, setItemList]=useState([]);
     const URI = process.env.REACT_APP_BASE_URI;
-    const getitems = async (id) => {
-      console.log(id)
-        // const res = await axios.get(`${URI}/home/main?category=${id}`);       
-        // return setItemList(res.data.items);
+    const gettotalitems = async () => {
+        const res = await axios.get(`${URI}/home/main`);
+    
+        return setItemList(res.data);
+    }
+
+    const getitems = async (categoryname) => {
+      console.log(categoryname)
+        const res = await axios.get(`${URI}/home/main/${categoryname}`);  
+        console.log()     
+        return setItemList(res.data);
     }
     console.log(itemList)
     return (
@@ -39,13 +48,13 @@ const itemList= [
                 제품보기
         </StMenuWrapper>
         <StCategoryBox>
-          <p onClick={() => getitems(1)}>전체</p>
-          <p onClick={() => getitems(2)}>면도용품</p>
-          <p onClick={() => getitems(3)}>스킨케어</p>
-          <p onClick={() => getitems(4)}>두피케어</p>
-          <p onClick={() => getitems(5)}>영양제</p>
-          <p onClick={() => getitems(6)}>덴탈케어</p>
-          <p onClick={() => getitems(7)}>바디케어</p>
+          <p onClick={() => gettotalitems()}>전체</p>
+          <p onClick={() => getitems("면도용품")}>면도용품</p>
+          <p onClick={() => getitems("스킨케어")}>스킨케어</p>
+          <p onClick={() => getitems("두피케어")}>두피케어</p>
+          <p onClick={() => getitems("영양제")}>영양제</p>
+          <p onClick={() => getitems("덴탈케어")}>덴탈케어</p>
+          <p onClick={() => getitems("바디케어")}>바디케어</p>
         </StCategoryBox>
         <StitemList>
           {itemList.map((item, i) => (
@@ -82,6 +91,7 @@ const StCategoryBox = styled.div`
     border-bottom: 1px solid #f0f0f0;
     p{
       padding: 16px 46px;
+      cursor: pointer;
     }
 `
 const StitemList=styled.div`

@@ -22,7 +22,7 @@ function Register() {
     const watchBirth = watch("birth", false);
     const watchName = watch("name", false);
    const [registerFail, setRegisterFail]=useState();
-
+   console.log(watchBirth)
 
     const navigate = useNavigate();
 
@@ -33,21 +33,21 @@ function Register() {
     const submitForm = async (data) => {
 
          await axios.post(`${URI}/members/signup`, 
-                // { email: data.email,
-                // password: data.password,
-                // birthDay: data.birth,
-                // name: data.name 
-                //  }
+                { email: data.email,
+                password: data.password,
+                birthday: String(data.birth),
+                name: data.name 
+                 }
         );  
-        const res = await axios.post(`${URI}/memberslogin`,
-        // {
-        //     email: data.email,
-        //     password: data.password
-        // }
+        const res = await axios.post(`${URI}/members/login`,
+        {
+            email: data.email,
+            password: data.password
+        }
         )
-        // console.log(res2) 
-    // localStorage.setItem("Authorization", res2.headers.authorization);
-    // localStorage.setItem("RefreshToken", res2.headers.refreshtoken);
+        console.log(res) 
+    localStorage.setItem("Authorization", res.headers.authorization);
+    localStorage.setItem("RefreshToken", res.headers.refreshtoken);
     
         return res.data.success ? navigate("/") : setRegisterFail(res.data.msg);
     }

@@ -12,6 +12,7 @@ import MyPage from"../pages/MyPage";
 
 
 
+
 const GlobalRouter = () => {
   return (
     <>
@@ -23,6 +24,7 @@ const GlobalRouter = () => {
         <Route path="/detail/:id" element={<DetailPage />}/>
         <Route path="/cart" element={<CartPage/>}/>
         <Route path="/profile" element={<MyPage />}/>
+      
       </Routes>
     </>
   );

@@ -9,18 +9,18 @@ import axios from "axios";
 const DetailItem=()=> {  
   const { id } = useParams();
   const navigate=useNavigate();
-  const [itemCount, setitemCount]=useState();
-  console.log(id)
-  // const[item,setItem]=useState();
+
+
+  const[item,setItem]=useState();
 
   const URI = process.env.REACT_APP_BASE_URI;
-  // useEffect(() => {
-  //   getitem(id);
-  //  }, []);
-  //  const getitem = async (id) => {
-  //     const res = await axios.get(`${URI}/items/detail/${id}`);       
-  //     return setItem(res.data);
-  // }
+  useEffect(() => {
+    getitem(id);
+   }, []);
+   const getitem = async (id) => {
+      const res = await axios.get(`${URI}/items/detail/${id}`);       
+      return setItem(res.data);
+  }
 
   let config = {
     headers: {
@@ -30,21 +30,18 @@ const DetailItem=()=> {
   };
 
   const putItemToCart=async (itemid)=>{
-    const res = await axios.post(`${URI}/items/detail/order/${itemid}`,
-    {
-      itemCount: itemCount,
-   }, config);       
+    const res = await axios.post(`${URI}/items/detail/order/${itemid}`, config);       
     return res
 }
 
-  const item=
-    { itemName : "면도기 스타터세트",
-     itemDesc : "면도기 첫 구매 고객 대상",
-     itemRate : 3,
-     itemReviewCount : 37341,
-     itemPrice : 4900,
-     itemImgUrl : "https://wiselystatic.s3.amazonaws.com/THUMBNAIL/prod/assets/images/item/101050000/main/ws-startset-navy-pro-main.png",
-   }
+  // const item=
+  //   { itemName : "면도기 스타터세트",
+  //    itemDesc : "면도기 첫 구매 고객 대상",
+  //    itemRate : 3,
+  //    itemReviewCount : 37341,
+  //    itemPrice : 4900,
+  //    itemImgUrl : "https://wiselystatic.s3.amazonaws.com/THUMBNAIL/prod/assets/images/item/101050000/main/ws-startset-navy-pro-main.png",
+  //  }
 
 
   

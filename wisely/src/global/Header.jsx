@@ -2,20 +2,26 @@ import React, { useState, useEffect } from "react";
 
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 
 const Header = (props) => {
+  const [islogin,setIslogin]=useState(false);
   const navigate = useNavigate();
 
   const Token = localStorage.getItem("Authorization");
-  console.log(Token);
-  // useEffect(() => {
-  //   if (userToken) {
-  //     dispatch(getUserDetails())
-  //   }
-  // }, [userToken, dispatch])
 
+  useEffect(() => {
+    if (Token) {
+      setIslogin(true)
+    }
+  }, [Token])
+
+   const logout = ()=> {
+    setIslogin(false);
+      localStorage.removeItem("Authorization");
+      localStorage.removeItem("RefreshToken");
+   }
   
   return (
     <StHeaderWrap className="header">
@@ -26,17 +32,20 @@ const Header = (props) => {
         </StMenu>
       
       <div className="loginFlexBox">
-        {Token ? (
+        {islogin ? (
+          <div className="logout">
+            <p onClick={logout}>로그아웃</p>
             <p  onClick={() => navigate("/profile")}>
               마이페이지
             </p>
-          
+            
+          </div>
         ) : (
           <p onClick={()=> navigate("/login")}>
             로그인
           </p>
         )} 
-          <p onClick={()=> navigate("/cart")}>장바구니</p>
+          <ShoppingCartIcon style={{marginTop: "15px"}} onClick={()=> navigate("/cart")}/>
       </div>
       </StContent>
     </StHeaderWrap>
@@ -112,6 +121,9 @@ const StHeaderWrap = styled.div`
         color: #fff;
       }
     }
+  }
+  .logout {
+    display: flex;
   }
 `;
 
