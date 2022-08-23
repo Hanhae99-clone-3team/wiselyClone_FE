@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-import {KAKAO_AUTH_URL} from "./Oauth"
+import Kakao from "./Oauth"
 // import { userLogin } from "../../redux/modules/userActions";
 //  
 // import Error from "../../components/Error";
@@ -73,12 +73,8 @@ function Login() {
         시작합니다.
        </LoginH1>
       </div>
-      <a href={KAKAO_AUTH_URL}><img
-          src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-          width="222"
-          alt="kakao"
-        /></a>
-      <KakaoButton>카톡으로 쉽게 로그인하기</KakaoButton>
+      <Kakao/>
+      
       
         <EmailBox>
         <div>이메일로 시작하기</div>

@@ -46,6 +46,17 @@ const initial= [
     //       console.log(res)     
     //       return setCartList(res.data.cartitems);
     //   }
+
+    // const saveCarthandler= async (cartId)=> {
+    //     const res = await axios.post(`${URI}/items/cart/${cartId}`, cartList, config)
+    //     return navigate("/")
+    // }
+
+     // const buyCartListhandler= async (cartId)=> {
+    //     const res = await axios.post(`${URI}/items/cart/${cartId}`, cartList, config)
+    //     return alert("구매완료")
+    // }
+
     const totalPrice= cartList.reduce((acc, cur) => acc + cur.itemPrice*cur.itemCount, 0)
   console.log(totalPrice)
 
@@ -58,9 +69,6 @@ const initial= [
                     <div>
 
                     </div>
-
-
-
                 <div className="cartList">
                     {cartList.length === 0? <>
                     <img src="https://www.wiselycompany.com/assets/images/cart/emptyBox.png" alt="item" />
@@ -77,8 +85,12 @@ const initial= [
                     </div>
                     
                     <ButtonSet>
-                    <button onClick={()=>navigate("/")}>더담으러 가기</button>
-                    <button>결제하기</button>
+                    <button 
+                    // onClick={()=>saveCarthandler(cartList.cartId)}
+                    >더담으러 가기</button>
+                    <button
+                    // onClick={()=>saveCarthandler(cartList.cartId)}
+                    >결제하기</button>
                     </ButtonSet>
                     </>}
                     

@@ -5,20 +5,35 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import DetailDesc from "./DetailDesc";
+import CommentsList from "./CommentList";
 
 const DetailItem=()=> {  
   const { id } = useParams();
   const navigate=useNavigate();
 
 
-  const[item,setItem]=useState();
+  const[item, setItem]=useState(
+    { 
+      itemAvgRate: 0,
+      itemDesc: "",
+      itemDetailImg1: "",
+      itemDetailImg2: "",
+      itemId: 0,
+      itemImgUrl: "",
+      itemName: "",
+      itemPrice: 0,
+      itemReviewCount: 0
+   }
+   );
 
-  const URI = process.env.REACT_APP_BASE_URI;
+
   useEffect(() => {
     getitem(id);
    }, []);
+     const URI = process.env.REACT_APP_BASE_URI;
    const getitem = async (id) => {
-      const res = await axios.get(`${URI}/items/detail/${id}`);       
+      const res = await axios.get(`${URI}/items/detail/${id}`);    
       return setItem(res.data);
   }
 
@@ -29,27 +44,25 @@ const DetailItem=()=> {
     },
   };
 
+
+const buyhandler=(id)=> {
+  putItemToCart(id)
+ return navigate("/cart")
+
+}
   const putItemToCart=async (itemid)=>{
-    const res = await axios.post(`${URI}/items/detail/order/${itemid}`, config);       
+    const res = await axios.post(`${URI}/items/detail/order/${itemid}`,
+     config
+     );       
     return res
 }
 
-  // const item=
-  //   { itemName : "면도기 스타터세트",
-  //    itemDesc : "면도기 첫 구매 고객 대상",
-  //    itemRate : 3,
-  //    itemReviewCount : 37341,
-  //    itemPrice : 4900,
-  //    itemImgUrl : "https://wiselystatic.s3.amazonaws.com/THUMBNAIL/prod/assets/images/item/101050000/main/ws-startset-navy-pro-main.png",
-  //  }
 
-
-  
-
- const ratingToPercent= item.itemRate * 20;
+ const ratingToPercent= item.itemAvgRate * 20;
     
 
     return (
+      <StDetilWrapper>
       <StItemWrapper>
         <div
           className="img"
@@ -79,20 +92,23 @@ const DetailItem=()=> {
               <div className="price">{item.itemPrice}원</div>
               </div>
               <div className="buttonset">
-                <button onClick={()=>{putItemToCart(item.itemid)}}>장바구니 담기</button>
-              <button onClick={()=>navigate("/cart")}>바로 구매하기</button>
+                <button onClick={()=>{putItemToCart(item.itemId)}}>장바구니 담기</button>
+              <button onClick={()=>buyhandler(item.itemId)}>바로 구매하기</button>
               </div>
 
           </StrigthBottom>
-         
-
           </StItemRight>
       </StItemWrapper>
+      <DetailDesc itemDetailImg1={item.itemDetailImg1} itemDetailImg2={item.itemDetailImg2} />
+      <CommentsList/>
+      </StDetilWrapper>
     );
   }
   
   export default DetailItem;
-
+const StDetilWrapper = styled.div`
+align-items: center;
+`
 const StItemWrapper = styled.div`
       display: flex;
     justify-content: space-between;

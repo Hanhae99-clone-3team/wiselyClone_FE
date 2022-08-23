@@ -8,22 +8,7 @@ function CategoryHeader() {
   useEffect(() => {
    gettotalitems();
   }, []);
-// const intial= [
-//   { itemName : "면도기 스타터세트",
-//    itemDesc : "면도기 첫 구매 고객 대상",
-//    itemRate : 3,
-//    itemReviewCount : 37341,
-//    itemPrice : 4900,
-//    itemImgUrl : "https://wiselystatic.s3.amazonaws.com/THUMBNAIL/prod/assets/images/item/101050000/main/ws-startset-navy-pro-main.png",
-//  },
-//   { itemName : "프레쉬한 바디위시",
-//    itemDesc : "미끌거림없이 빠르게 씻기는",
-//    itemRate : 2,
-//    itemReviewCount : 5000,
-//    itemPrice : 4900,
-//    itemImgUrl : "https://wiselystatic.s3.amazonaws.com/THUMBNAIL/prod/assets/images/item/600101000/main/ft-bodywash-fresh-main.png",
-//  }
-//  ]
+
 
 
 
@@ -37,11 +22,10 @@ function CategoryHeader() {
 
     const getitems = async (categoryname) => {
       console.log(categoryname)
-        const res = await axios.get(`${URI}/home/main/${categoryname}`);  
-        console.log()     
+        const res = await axios.get(`${URI}/home/main/${categoryname}`);      
         return setItemList(res.data);
     }
-    console.log(itemList)
+  
     return (
       <div>
          <StMenuWrapper>
@@ -95,5 +79,11 @@ const StCategoryBox = styled.div`
     }
 `
 const StitemList=styled.div`
-  display: flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 8px;
+    width: 100%;
+    max-width: 1140px;
 `

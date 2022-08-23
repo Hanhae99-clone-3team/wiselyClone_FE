@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import axios from "axios";
 
 
 const Header = (props) => {
@@ -17,10 +18,21 @@ const Header = (props) => {
     }
   }, [Token])
 
-   const logout = ()=> {
+  const URI = process.env.REACT_APP_BASE_URI;
+   let config = {
+     headers: {
+       Authorization: localStorage.getItem("Authorization"),
+       RefreshToken: localStorage.getItem("RefreshToken"),
+     },
+   };
+
+   const logout = async()=> {
+    const res = await axios.get(`${URI}/members/logout`, config);
+
     setIslogin(false);
       localStorage.removeItem("Authorization");
       localStorage.removeItem("RefreshToken");
+      return res
    }
   
   return (
@@ -28,7 +40,7 @@ const Header = (props) => {
       <StContent>
     <StMenu>
         <h2 onClick={() => navigate("/")}>WISELY</h2>
-        <p>제품보기</p>
+        <p onClick={() => navigate("/")}>제품보기</p>
         </StMenu>
       
       <div className="loginFlexBox">
@@ -45,7 +57,10 @@ const Header = (props) => {
             로그인
           </p>
         )} 
-          <ShoppingCartIcon style={{marginTop: "15px"}} onClick={()=> navigate("/cart")}/>
+          <ShoppingCartIcon style={{
+            marginTop: "15px",
+            cursor: "pointer"
+        }} onClick={()=> navigate("/cart")}/>
       </div>
       </StContent>
     </StHeaderWrap>

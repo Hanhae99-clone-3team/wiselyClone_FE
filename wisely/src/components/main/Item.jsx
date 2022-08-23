@@ -2,14 +2,13 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function Item({item}) {
-
   const navigate=useNavigate();
-console.log(item.itemRate)
+
  const ratingToPercent= item.itemRate * 20;
-    console.log(ratingToPercent)
+   
 
     return (
-      <StItemWrapper onClick={()=>navigate(`/detail/${item.id}`)}>
+      <StItemWrapper onClick={()=>navigate(`/detail/${item.itemId}`)}>
         <div
           className="img"
           style={{ backgroundImage: `url(${item.itemImgUrl})` }}
@@ -52,7 +51,7 @@ console.log(item.itemRate)
 const StItemWrapper = styled.div`
       margin: 32px 60px;
   
-    width: calc(50% - 60px);
+    width: calc(50% - 120px);
     display: flex;
     cursor: pointer;
     .img{
