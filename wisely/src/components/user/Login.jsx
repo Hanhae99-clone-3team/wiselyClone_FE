@@ -1,39 +1,31 @@
 import styled from "styled-components";
-import React, {useRef, useState} from "react";
+import React, { useState, useEffect} from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 import Kakao from "./Oauth"
-// import { userLogin } from "../../redux/modules/userActions";
-//  
-// import Error from "../../components/Error";
+
 
 function Login() {
     const [emailOpen, setEmailOpen]=useState(false);
     const [isEmail,setIsEmail]=useState(false);
-
- 
     const {
     register,
     handleSubmit,
     watch,
     formState: { isSubmitting, isDirty, errors },
-    
   } = useForm({ mode: "onChange" });
-  
-
   const navigate = useNavigate();
   const watchEmail = watch("email", false);
   const watchPassWord = watch("password", false);
 
-  // redirect authenticated user to profile screen
-//   useEffect(() => {
-//     if (userToken) {
-//       navigate("/");
-//     }
-//   }, [navigate, userToken]);
+const Token =  localStorage.getItem("Authorization")
+  useEffect(() => {
+    if (Token) {
+      navigate("/");
+    }
+  }, []);
     const URI = process.env.REACT_APP_BASE_URI;
   
     const [loginfail, setLoginfail]=useState();
@@ -43,7 +35,8 @@ function Login() {
             { email: data.email }
             );
            console.log(res)
-            return res.data.success ? navigate("/register"): setIsEmail(true);
+           localStorage.setItem("email", data.email)
+            return res.data.success ? navigate("/register") : setIsEmail(true);
         } else {
             const res2 = await axios.post(`${URI}/members/login`,
                 {
@@ -57,30 +50,23 @@ function Login() {
             return res2.data.success ? navigate("/"): setLoginfail(res2.data.msg);
         }
 
-    // dispatch(userLogin(data));
+
   };
 
-// console.log(Boolean(!watchEmail))
-// console.log(Boolean(errors.email))
-// console.log(!watchEmail || errors.email)
 
   return (
     <StLoginBox className="login" >
-      {/* {error && <Error>{error}</Error>} */}
       <div className="signBox">
        <LoginH1>
         로그인 및 회원가입을
         시작합니다.
        </LoginH1>
       </div>
-      <Kakao/>
-      
-      
-        <EmailBox>
-        <div>이메일로 시작하기</div>
-        <button onClick={()=>{setEmailOpen(!emailOpen)}}>버튼</button>
-        </EmailBox>
-        {emailOpen &&
+     
+      <Kakao className="kakao" />
+    
+    
+        
             <div className="inputbox">
                   <form onSubmit={handleSubmit(submitForm)}>
 
@@ -125,12 +111,13 @@ function Login() {
                           <LoginButton type="submit" disabled={isSubmitting||!watchEmail || !watchPassWord || errors.email || errors.password}>
                               로그인
                           </LoginButton>
+                          <p className="regiser" onClick={()=>navigate("/register")}>회원가입하러가기</p>
 
                       </>)}
                   </form>
 
               </div>
-          }
+          
 
 
       </StLoginBox>
@@ -147,18 +134,35 @@ const StLoginBox = styled.div`
       margin-right: 30px;
       transition: all 0.4s;
     }
+    small {
+      color: red;
+    }
+    .kakao {
+      font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -.04em;
+    line-height: 26px;
+    line-height: 100%;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #ffea00;
+    width: 100%;
+    height: 60px;
+    width: 400px;
+    max-width: 100%;
+    color: #1c1c1c;
+    }
   
   .inputbox {
-    
     margin-bottom: 38px;
   }
   form {
-    
     margin-top: 52px;
   }
- 
   p {
-
     margin-bottom: 0;
   }
   input {
@@ -170,6 +174,11 @@ const StLoginBox = styled.div`
     font-size: 20px;
     border-bottom: 1px solid rgba(225, 225, 225, 0.8);
     background: none;
+  }
+  .regiser {
+    cursor:pointer;
+    margin-top: 10px;
+    text-align: center;
   }
 
 `;
@@ -183,22 +192,7 @@ const LoginH1 =styled.h1`
     padding: 68px 0;
 `
 
-const KakaoButton =styled.button`
-    width: 400px;
-    height: 60px;
-    margin-bottom: 12px;
-    background-color: yellow;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-`
-const EmailBox=styled.div`
-    display: flex;
-    padding-top: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
+
 
 const LoginButton=styled.button`
     margin-top: 28px;
@@ -217,7 +211,6 @@ const LoginButton=styled.button`
     height: 60px;
     width: 400px;
     max-width: 100%;
-   
     opacity: ${props=> props.disabled? 0.6: 1};
     cursor:  ${props=> props.disabled? `not-allowed`:`pointer`}
 `

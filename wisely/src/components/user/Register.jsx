@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 
@@ -11,12 +10,16 @@ import axios from "axios";
 // import Error from "../../components/Error";
 
 function Register() {
+    const defaultemail =  localStorage.getItem("email")
     const {
         register,
         handleSubmit,
         watch,
         formState: { isSubmitting, isDirty, errors },
-    } = useForm({ mode: "onChange" });
+    } = useForm({ mode: "onChange", 
+    defaultValues: {
+        email: defaultemail,
+      } });
     const watchEmail = watch("email", false);
     const watchPassWord = watch("password", false);
     const watchBirth = watch("birth", false);
@@ -180,6 +183,9 @@ const StRegisterBox = styled.div`
       padding: 5px 10px;
       margin-right: 30px;
       transition: all 0.4s;
+    }
+    small {
+      color: red;
     }
   
 

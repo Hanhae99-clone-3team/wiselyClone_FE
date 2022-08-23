@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { useState } from "react";
 import axios from "axios";
 
 const CartItem= ( {item, cartList, setCartList})=> {
 
 const plus = () => {
     const newCartList = cartList.map((cur) => {
-        if(item.itemId == cur.itemId){
+        if(item.itemId === cur.itemId){
          return{...cur, itemCount: item.itemCount + 1 };
          }else{
              return cur;
@@ -17,7 +16,7 @@ const plus = () => {
   };
   const mius = () => {
     const newCartList2 = cartList.map((cur) => {
-        if(item.itemId == cur.itemId){
+        if(item.itemId === cur.itemId){
          return{...cur, itemCount: item.itemCount - 1 };
          }else{
              return cur;

@@ -6,7 +6,6 @@ import RegisterPage from "../pages/RegisterPage";
 import MainPage from "../pages/MainPage";
 import DetailPage from "../pages/DetailPage";
 import CartPage from "../pages/CartPage"
-import MyPage from"../pages/MyPage";
 import KaKaoLogin from "../components/user/KaKaologin";
 
 
@@ -21,7 +20,6 @@ const GlobalRouter = () => {
         <Route path="/" element={<MainPage />}/>
         <Route path="/detail/:id" element={<DetailPage />}/>
         <Route path="/cart" element={<CartPage/>}/>
-        <Route path="/profile" element={<MyPage />}/>
       <Route path="/kakaoLogin" element={<KaKaoLogin/>}/>
       </Routes>
     </>

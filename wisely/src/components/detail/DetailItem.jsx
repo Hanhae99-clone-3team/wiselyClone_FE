@@ -27,22 +27,25 @@ const DetailItem=()=> {
    }
    );
 
-
   useEffect(() => {
     getitem(id);
    }, []);
-     const URI = process.env.REACT_APP_BASE_URI;
+     
+   const URI = process.env.REACT_APP_BASE_URI;
+   let config = {
+     headers: {
+       Authorization: localStorage.getItem("Authorization"),
+       RefreshToken: localStorage.getItem("RefreshToken"),
+     },
+   };
+
+
+
    const getitem = async (id) => {
       const res = await axios.get(`${URI}/items/detail/${id}`);    
       return setItem(res.data);
   }
-
-  let config = {
-    headers: {
-      Authorization: localStorage.getItem("Authorization"),
-      RefreshToken: localStorage.getItem("RefreshToken"),
-    },
-  };
+  
 
 
 const buyhandler=(id)=> {
@@ -162,7 +165,7 @@ const StItemWrapper = styled.div`
   position: relative;
   unicode-bidi: bidi-override;
   width: max-content;
-  -webkit-text-fill-color: 	#E2E2E2; /* Will override color (regardless of order) */
+  -webkit-text-fill-color: 	#E2E2E2;
   -webkit-text-stroke-width: 1.3px;
   -webkit-text-stroke-color: transparent;
 }

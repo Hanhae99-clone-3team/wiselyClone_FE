@@ -31,6 +31,17 @@ const initial= [
 
     const [cartList, setCartList]=useState(initial);
 
+    const countList=[];
+    const b=cartList.length
+    
+    for (let i= 0; i < b; i++) {
+       
+    countList.push({itemId: cartList[i].itemId,
+        itemCount: cartList[i].itemCount});
+
+}
+
+
     // useEffect(()=> {
     //     getCartList()
     // },[])
@@ -48,7 +59,7 @@ const initial= [
     //   }
 
     // const saveCarthandler= async (cartId)=> {
-    //     const res = await axios.post(`${URI}/items/cart/${cartId}`, cartList, config)
+    //     const res = await axios.post(`${URI}/items/cart/${cartId}`, countList, config)
     //     return navigate("/")
     // }
 

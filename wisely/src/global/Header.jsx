@@ -32,6 +32,7 @@ const Header = (props) => {
     setIslogin(false);
       localStorage.removeItem("Authorization");
       localStorage.removeItem("RefreshToken");
+      localStorage.removeItem("email")
       return res
    }
   
