@@ -103,7 +103,7 @@ const buyhandler=(id)=> {
           </StItemRight>
       </StItemWrapper>
       <DetailDesc itemDetailImg1={item.itemDetailImg1} itemDetailImg2={item.itemDetailImg2} />
-      <CommentsList/>
+      <CommentsList itemReviewCount={item.itemReviewCount}/>
       </StDetilWrapper>
     );
   }

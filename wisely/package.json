@@ -35,7 +35,7 @@
     "eject": "react-scripts eject",
     "server-start": "json-server --watch db.json --port 5001",
     "deploy": "aws s3 sync ./build s3://wisely-devvv --profile=wisely",
-    "invalidate":"aws cloudfront create-invalidation --profile=wisely --distribution-id E233ZNIQ6B0K96 --paths /*"
+    "invalidate": "aws cloudfront create-invalidation --profile=wisely --distribution-id E233ZNIQ6B0K96 --paths /*"
   },
   "eslintConfig": {
     "extends": [
