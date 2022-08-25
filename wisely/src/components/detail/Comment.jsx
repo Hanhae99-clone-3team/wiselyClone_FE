@@ -1,33 +1,13 @@
-//후기 하나 별점, 내용, 이름,나이대, 날짜
-
-
-
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import TextField from "@mui/material/TextField";
-
 
 
 
 const Comment = ({ comment }) => {
-
-
-    const userInfo = localStorage.getItem('userInfo')
-    const { id } = useParams();
-    const dispatch = useDispatch();
-    const [isEdit, setIsEdit] = useState(false);
-
-
-
-
-
     const ratingToPercent = comment.commentRate * 20;
 
     return (
         <div>
-
             <StComment>
                 <div className="starbox">
                     <div className="star-ratings">
@@ -94,7 +74,7 @@ const StComment = styled.div`
    position: relative;
    unicode-bidi: bidi-override;
    width: max-content;
-   -webkit-text-fill-color: 	#E2E2E2; /* Will override color (regardless of order) */
+   -webkit-text-fill-color: 	#E2E2E2; 
    -webkit-text-stroke-width: 1.3px;
    -webkit-text-stroke-color: transparent;
  }
