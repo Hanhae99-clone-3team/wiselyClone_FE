@@ -48,13 +48,13 @@ function Register() {
             password: data.password
         }
         )
-        console.log(res) 
+    
     localStorage.setItem("Authorization", res.headers.authorization);
     localStorage.setItem("RefreshToken", res.headers.refreshtoken);
     
         return res.data.success ? navigate("/") : setRegisterFail(res.data.msg);
     }
-
+    
 
 
 

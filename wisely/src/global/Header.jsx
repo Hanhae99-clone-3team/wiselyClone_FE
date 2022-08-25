@@ -47,11 +47,7 @@ const Header = (props) => {
       <div className="loginFlexBox">
         {islogin ? (
           <div className="logout">
-            <p onClick={logout}>로그아웃</p>
-            <p  onClick={() => navigate("/profile")}>
-              마이페이지
-            </p>
-            
+            <p onClick={()=>logout()}>로그아웃</p>  
           </div>
         ) : (
           <p onClick={()=> navigate("/login")}>

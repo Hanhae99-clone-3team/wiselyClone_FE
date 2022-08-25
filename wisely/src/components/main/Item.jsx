@@ -8,7 +8,7 @@ function Item({item}) {
    
 
     return (
-      <StItemWrapper onClick={()=>navigate(`/detail/${item.itemId}`)}>
+      <StItemWrapper onClick={() => navigate(`/detail/${item.itemId}`)}>
         <div
           className="img"
           style={{ backgroundImage: `url(${item.itemImgUrl})` }}

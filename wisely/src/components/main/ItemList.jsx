@@ -21,7 +21,6 @@ function CategoryHeader() {
     }
 
     const getitems = async (categoryname) => {
-      console.log(categoryname)
         const res = await axios.get(`${URI}/home/main/${categoryname}`);      
         return setItemList(res.data);
     }

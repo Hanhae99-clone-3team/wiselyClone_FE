@@ -5,18 +5,18 @@ const CartItem= ( {item, cartList, setCartList})=> {
 
 const plus = () => {
     const newCartList = cartList.map((cur) => {
-        if(item.itemId === cur.itemId){
+        if(item.cartItemId === cur.cartItemId){
          return{...cur, itemCount: item.itemCount + 1 };
          }else{
              return cur;
          }
      })
-     console.log(newCartList)
+    
     return setCartList(newCartList)
   };
-  const mius = () => {
+  const minus = () => {
     const newCartList2 = cartList.map((cur) => {
-        if(item.itemId === cur.itemId){
+        if(item.cartItemId === cur.cartItemId){
          return{...cur, itemCount: item.itemCount - 1 };
          }else{
              return cur;
@@ -25,7 +25,7 @@ const plus = () => {
 
     return item.itemCount<=1 ? 1 : setCartList(newCartList2)
   };
-  console.log(item.itemCount)
+  
    let config = {
         headers: {
           Authorization: localStorage.getItem("Authorization"),
@@ -50,14 +50,14 @@ const plus = () => {
         <div className="item-right">
            <div className="righttop">
                 <div>{item.itemName}</div>
-                <button  className="deletebutton" onClick={()=>{__deletecartitem(item.itmeId)}}>x</button>
+                <button  className="deletebutton" onClick={()=>{__deletecartitem(item.itemId)}}>x</button>
             </div> 
            <div className="rightbottom">
                 <div>{item.itemPrice}원</div>
                 <div className="buttonset">
-                    <CountButton  onClick={()=>{mius(item.itmId)}}>-</CountButton>
+                    <CountButton  onClick={()=>{minus(item.itemId)}}>-</CountButton>
                     <CountDiv>{item.itemCount}</CountDiv>
-                    <CountButton onClick={()=>{plus(item.itmId)}}>+</CountButton>
+                    <CountButton onClick={()=>{plus(item.itemId)}}>+</CountButton>
                 </div>
             </div>
         </div>

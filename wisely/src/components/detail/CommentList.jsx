@@ -31,14 +31,11 @@ function CommentsList({itemReviewCount}) {
   const URI = process.env.REACT_APP_BASE_URI;
   const getcommentList = async (data) => {
     const res = await axios.get(`${URI}/items/detail/comments/${data.id}?page=${data.page-1}&size=5`);
-    console.log(res.data.comments)       
+         
     return setCommentList(res.data.comments);
 }
 
 
-
-
-console.log(itemReviewCount)
     return (
       <StCommentsList className="StCommentsList">
             {commentList.map((comment,i) => (

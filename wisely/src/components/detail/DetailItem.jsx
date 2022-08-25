@@ -1,6 +1,3 @@
-//디테일 위쪽 컴포넌트 
-//이미지, 제품 이름, 제품 간략 설명, 평균별점, 후기개수, 가격, 구매버튼, 장바구니버튼 
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -27,36 +24,35 @@ const DetailItem=()=> {
    }
    );
 
+   const URI = process.env.REACT_APP_BASE_URI;
+   const getitem = async (id) => {
+    const res = await axios.get(`${URI}/items/detail/${id}`);    
+    return setItem(res.data);
+}
+
   useEffect(() => {
     getitem(id);
    }, []);
      
-   const URI = process.env.REACT_APP_BASE_URI;
-   let config = {
+   
+   const config = {
      headers: {
        Authorization: localStorage.getItem("Authorization"),
-       RefreshToken: localStorage.getItem("RefreshToken"),
+       RefreshToken: localStorage.getItem("RefreshToken")
      },
-   };
-
-
-
-   const getitem = async (id) => {
-      const res = await axios.get(`${URI}/items/detail/${id}`);    
-      return setItem(res.data);
-  }
-  
-
+   }
+console.log(config)
 
 const buyhandler=(id)=> {
   putItemToCart(id)
  return navigate("/cart")
 
 }
-  const putItemToCart=async (itemid)=>{
-    const res = await axios.post(`${URI}/items/detail/order/${itemid}`,
-     config
-     );       
+  const putItemToCart=async (itemId)=>{
+    const res = await axios.post(`${URI}/items/detail/order/${itemId}`,
+   config
+     );  
+     console.log(res);     
     return res
 }
 
